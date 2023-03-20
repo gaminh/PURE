@@ -1,17 +1,18 @@
 library(fgsea)
 library(tidyverse)
 
-datasets = as.character(c(532, 533, 534, 538, 548, 543, 549, 554, 562, 566, 568, 569, 570, 800))
+datasets = as.character(c(548, 549, 562, 569, 570, 532, 533, 534, 543, 538, 568, 566, 554, 800))
 
-targetChemical = c("Estradiol", "Estradiol", "Estradiol", "Estradiol", "Dexamethasone",
-                   "Acetaminophen", "Dexamethasone",  "Dexamethasone","Diethylhexyl Phthalate", "Etoposide", 
-                   "Etoposide", "Calcitriol", "Calcitriol", "Copper deficiency")
+targetChemical = c("Dexamethasone", "Dexamethasone", "Diethylhexyl Phthalate", "Calcitriol",
+                   "Calcitriol", "Estradiol", "Estradiol", "Estradiol", "Acetaminophen",
+                   "Estradiol", "Etoposide", "Etoposide", "Dexamethasone", "Copper deficiency")
 
-GEOID = c("GSE11352", "GSE11352", "GSE11352", "GSE12446", "GSE26487", "GSE74000",  "GSE49804",
-          "GSE51213",  "GSE86837",  "GSE67266",  "GSE67266", "GSE58434",
-          "GSE58434", "GSE58875")
 
-organism = c("Human", "Human", "Human", "Human", "Human", "Human", "Mouse", "Mouse", "Mouse", "Mouse", "Mouse", "Human","Human", "Rat")
+GEOID = c("GSE26487", "GSE49804", "GSE86837", "GSE58434", "GSE58434", "GSE11352", "GSE11352", "GSE11352", 
+          "GSE74000", "GSE12446", "GSE67266", "GSE67266", "GSE51213", "GSE58875")
+
+organism = c("Human", "Mouse", "Mouse", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Mouse",  
+             "Mouse", "Mouse", "Rat")
 
 create_geneset <- function(network)
 {
