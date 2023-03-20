@@ -1,6 +1,7 @@
 options("scipen"=100, "digits"=4)
 library(ggplot2)
 library("plotrix")
+library(tidyverse)
 
 datasets = as.character(c(548, 549, 562, 569, 570, 532, 533, 534, 543, 538, 568, 566, 554, 800))
 
@@ -14,11 +15,6 @@ GEOID = c("GSE26487", "GSE49804", "GSE86837", "GSE58434", "GSE58434", "GSE11352"
 
 organism = c("Human", "Mouse", "Mouse", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Mouse",  
              "Mouse", "Mouse", "Rat")
-
-setwd("/Users/minhnguyen/upstream_analysis/")
-# setwd("/data/dtran/DrugDiscovery/")
-
-library(tidyverse)
 
 create_geneset <- function(network)
 {
