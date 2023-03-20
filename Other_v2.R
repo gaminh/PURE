@@ -1,33 +1,17 @@
-datasets = as.character(c(532, 533, 534, 537, 538, 541, 548, 543, 545, 547, 549, 550, 554, 552, 553, 555, 556, 
-                          557, 558, 560, 559, 561, 562, 563, 565, 566, 567, 568, 564, 569, 570, 800))
-
-targetChemical = c("Estradiol", "Estradiol", "Estradiol", "Estradiol", "Estradiol", "Atorvastatin", "Dexamethasone",
-                   "Acetaminophen", "Omeprazole", "Prednisolone", "Dexamethasone", "Dexamethasone", "Dexamethasone", "Prednisolone", 
-                   "Prednisolone", "Dexamethasone", "Acetaminophen", "Acetaminophen","Tobacco Smoke Pollution", 
-                   "Tobacco Smoke Pollution", "Tobacco Smoke Pollution", "Choline deficiency", 
-                   "Diethylhexyl Phthalate", "Medroxyprogesterone Acetate", "Etoposide","Etoposide", "Etoposide", 
-                   "Etoposide", "Dexamethasone", "Calcitriol", "Calcitriol", "Copper deficiency")
-
-GEOID = c("GSE11352", "GSE11352", "GSE11352", "GSE52649", "GSE12446", "GSE24187", "GSE26487", "GSE74000", "GSE77239", NA, "GSE49804",
-          "GSE51213", "GSE51213", NA, "GSE21048", "GSE72907", "GSE68065", "GSE40336", "GSE50254", "GSE50254", "GSE50254",
-          "GSE111294", "GSE86837", "GSE68229", "GSE67266", "GSE67266", "GSE67266", "GSE67266", "GSE52778", "GSE58434",
-          "GSE58434", "GSE58875")
-
-organism = c("Human", "Human", "Human", "Mouse", "Human", "Human", "Human", "Human", "Human", "Human", "Mouse", "Mouse", "Mouse", "Mouse",
-             "Mouse", "Rat", "Rat", "Rat", "Rat", "Rat", "Rat", "Mouse", "Mouse", "Human", "Mouse", "Mouse", "Mouse", "Mouse", "Human", "Human","Human", "Rat")
-
-bad = c(4, 6, 9, 10, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 27, 29)
-omit = bad #c(rattus, bad)
-datasets = datasets[-omit]
-targetChemical = targetChemical[-omit]
-GEOID = GEOID[-omit]
-organism = organism[-omit]
-
-# setwd("/data/dtran/DrugDiscovery/")
-setwd("/Users/minhnguyen/upstream_analysis/")
-
 library(fgsea)
 library(tidyverse)
+
+datasets = as.character(c(532, 533, 534, 538, 548, 543, 549, 554, 562, 566, 568, 569, 570, 800))
+
+targetChemical = c("Estradiol", "Estradiol", "Estradiol", "Estradiol", "Dexamethasone",
+                   "Acetaminophen", "Dexamethasone",  "Dexamethasone","Diethylhexyl Phthalate", "Etoposide", 
+                   "Etoposide", "Calcitriol", "Calcitriol", "Copper deficiency")
+
+GEOID = c("GSE11352", "GSE11352", "GSE11352", "GSE12446", "GSE26487", "GSE74000",  "GSE49804",
+          "GSE51213",  "GSE86837",  "GSE67266",  "GSE67266", "GSE58434",
+          "GSE58434", "GSE58875")
+
+organism = c("Human", "Human", "Human", "Human", "Human", "Human", "Mouse", "Mouse", "Mouse", "Mouse", "Mouse", "Human","Human", "Rat")
 
 create_geneset <- function(network)
 {
