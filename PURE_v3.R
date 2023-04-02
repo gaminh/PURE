@@ -49,6 +49,11 @@ run_PURE <- function(gene_sets, gene_set_names, network = network, seed=1) {
     
     phyper(wBallDraw, wBall, bBall, ballDraw, lower.tail = F)
     
+    ## One can use fisher.test as follows:
+    # fisher.test(matrix(c(length(DEGenes), ballDraw - length(DEGenes), 
+    #                     wBall - length(DEGenes), 
+    #                     bBall - ballDraw + length(DEGenes)), nrow = 2), 
+    #            alternative = "greater")$p.value
   }) %>% unlist() %>% data.frame(stringsAsFactors = F)
   
   colnames(res) <- 'p.value'
