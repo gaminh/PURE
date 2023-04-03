@@ -1,7 +1,10 @@
 library(fgsea)
 library(tidyverse)
 
-datasets = as.character(c(548, 549, 562, 569, 570, 532, 533, 534, 543, 538, 568, 566, 554, 800))
+datasets = c("exp1_GSE26487", "exp2_GSE49804", "exp3_GSE86837", "exp4_GSE58434",
+                          "exp5_GSE58434", "exp6_GSE11352", "exp7_GSE11352", "exp8_GSE11352", 
+                          "exp9_GSE74000", "exp10_GSE12446", "exp11_GSE67266", "exp12_GSE67266", 
+                          "exp13_GSE51213", "exp14_GSE58875")
 
 targetChemical = c("Dexamethasone", "Dexamethasone", "Diethylhexyl Phthalate", "Calcitriol",
                    "Calcitriol", "Estradiol", "Estradiol", "Estradiol", "Acetaminophen",
