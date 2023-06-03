@@ -27,7 +27,7 @@ create_geneset <- function(network)
 }
 
 getInputData <- function(identifier, cacheFolder="./data", suffix){
-  analysisDataFile <- paste("upstream", identifier, suffix, sep='_')
+  analysisDataFile <- paste(identifier, suffix, sep='_')
   file = file.path(cacheFolder, analysisDataFile)
   inputData <- read.csv(file=file, header=TRUE,  stringsAsFactors = FALSE)
   return(inputData)
@@ -138,6 +138,6 @@ for (method in c("ORA", "KS", "Wilcox", "FGSEA")) {
     
     res$pathway <- tmp[res$pathway,]$ChemicalName
     
-    saveRDS(res, file = paste0("./result/", method, "_", datasets[i], "_vOrg.rds"))
+    saveRDS(res, file = paste0("./", method, "_", datasets[i], "_vOrg.rds"))
   }
 }
