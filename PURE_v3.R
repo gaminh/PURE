@@ -1,3 +1,4 @@
+setwd("~/PURE-main")
 options("scipen"=100, "digits"=4)
 library(ggplot2)
 library("plotrix")

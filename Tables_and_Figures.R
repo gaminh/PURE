@@ -1,3 +1,7 @@
+# Run PURE_v3.R and Other_v3.R scripts before running this file 
+
+setwd("~/PURE-main")
+
 result_table <- matrix(nrow = length(datasets), ncol = 5*3)
 methods <- c("ORA", "KS", "Wilcox", "FGSEA", "PURE")
 colnames(result_table) <- c(paste0("Rank_", methods), paste0("NrSignDrug_", methods), paste0("pAdj_", methods))

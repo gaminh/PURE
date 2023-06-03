@@ -1,3 +1,4 @@
+setwd("~/PURE-main")
 library(fgsea)
 library(tidyverse)
 
