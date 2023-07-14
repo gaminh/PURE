@@ -267,7 +267,7 @@ for (method in methods) {
       result_table[datasets[i], paste0("NrSignDrug_",method)] <- sum(p_value< 0.05)
       result_table[datasets[i], paste0("pAdj_",method)] <- res[res$CDT == chem, "padj"]
     } else {
-      res <-  as.data.frame(read_xls(paste0("IPA_analysis_v3/IPA_", datasets[i], ".xls"), sheet = "Sheet1", guess_max = 21474836))
+      res <-  as.data.frame(read_xls(paste0("IPA_analysis/IPA_", datasets[i], ".xls"), sheet = "Sheet1", guess_max = 21474836))
       res <- res[!is.na(res$`Activation z-score`),] 
       if(method == "IPA_CDT") {
         res <- res[grepl("chemical|drug", res$`Molecule Type`),] # for IPA_CDT, filter only chemicals/drugs in molecule type
