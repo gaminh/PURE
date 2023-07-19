@@ -34,4 +34,8 @@ BiocManager, Version 1.30.21
 - Implementing other benchmarking methods. The function “run_KS_W” implements the Kolmogorov-Smirnov test (KS) and Wilcoxon test. The parameter “method” takes either the value “ks” for KS or “wilcox” for Wilcoxon test. The other parameters for “run_KS_W” functions are the list of downstream genes for each CDT, the fold-changes, and the p values of the genes. The function “run_ORA” implements the ORA approach and takes the downstream gene sets, and p values of the genes as the parameters. For FGSEA we used the function “fgsea” from the fgsea package. We did not implemented IPA but obtained its results directly from IPA software.
 - Collecting the results. The results from running each algorithm are saved in the format of “<method>_<datasets>_vOrg.rds". All the results will be saved in the variable “result_table” which is then saved as "Result_Table.csv" in the same folder. Some statistics mentions in the manuscript such as the average values, the standard deviations, the p value when comparing the performance of PURE and other methods are also calculated in this section. Lastly, we included the code that generate the figures in the manuscript.
 
+4. How to run the script: In the terminal, run the following command at the folder containing the script "PURE_v3.R":
+Rscript PURE_v3.R
+The script will prompt user to enter the path where the git repo was cloned.
+
 Contact: Please contact tuanminh22@gmail.com if you have any question.

@@ -1,4 +1,18 @@
-setwd("~/PURE-main")
+# ------------------------------------------------------------------------------------------------- #
+# PURE project
+# this script is used to implement the PURE algorithm and generate all the results, tables, and figures
+# for the paper:
+# Title: "A novel approach for Predicting Upstream REgulators (PURE) that affect gene expression" 
+# Authors: Tuan-Minh Nguyen, Douglas B. Craig, Duc Tran, Tin Nguyen, Sorin Draghici
+#  
+# created by Tuan-Minh Nguyen and Duc Tran
+# ------------------------------------------------------------------------------------------------- #
+
+cat("Please enter the working directory path (e.g. \"~/PURE-main\"): ")
+path = readLines("stdin",n=1)
+setwd(path)
+cat(paste0("Set working directory successfully: ", path, "\n"))
+#setwd("~/PURE-main")
 options("scipen"=100, "digits"=4)
 
 # Installing packages ------------------------------------------------------
@@ -310,7 +324,6 @@ print(summary)
 #Summary for H2
 round(apply(result_table[c(15,16),], 2, mean, na.rm = T),1)
 
-PURE_r = result_table[,"Rank_PURE"]
 IPA_CDT_r = result_table[,"Rank_IPA_CDT"]
 IPA_r = result_table[,"Rank_IPA"]
 
@@ -318,19 +331,21 @@ index = is.na(IPA_CDT_r)
 IPA_CDT_r[index] = result_table[index, "NrSignDrug_IPA_CDT"] + 1
 IPA_r[index] = result_table[index, "NrSignDrug_IPA"] + 1
 
-wilcox.test(PURE_r, IPA_CDT_r, alternative = "less")
-wilcox.test(PURE_r, IPA_r, alternative = "less")
-wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_ORA"], alternative = "less")
-wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_KS"], alternative = "less")
-wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_Wilcox"], alternative = "less")
-wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_FGSEA"], alternative = "less")
+print("Comparing the ranks of true CDTs:")
+print(paste0("PURE vs IPA: p = ", wilcox.test(result_table[,"Rank_PURE"], IPA_r, alternative = "less")$p.value))
+print(paste0("PURE vs IPA_CDT: p = ", wilcox.test(result_table[,"Rank_PURE"], IPA_CDT_r, alternative = "less")$p.value))
+print(paste0("PURE vs ORA: p = ", wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_ORA"], alternative = "less")$p.value))
+print(paste0("PURE vs KS: p = ", wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_KS"], alternative = "less")$p.value))
+print(paste0("PURE vs Wilcox: p = ", wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_Wilcox"], alternative = "less")$p.value))
+print(paste0("PURE vs FGSEA: p = ", wilcox.test(result_table[,"Rank_PURE"], result_table[,"Rank_FGSEA"], alternative = "less")$p.value))
 
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_IPA"], alternative = "less")
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_IPA_CDT"], alternative = "less")
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_ORA"], alternative = "less")
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_KS"], alternative = "less")
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_FGSEA"], alternative = "less")
-wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_Wilcox"], alternative = "less")
+print("Comparing the number of significant CDTs reported:")
+print(paste0("PURE vs IPA: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_IPA"], alternative = "less")$p.value))
+print(paste0("PURE vs IPA_CDT: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_IPA_CDT"], alternative = "less")$p.value))
+print(paste0("PURE vs ORA: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_ORA"], alternative = "less")$p.value))
+print(paste0("PURE vs KS: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_KS"], alternative = "less")$p.value))
+print(paste0("PURE vs FGSEA: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_FGSEA"], alternative = "less")$p.value))
+print(paste0("PURE vs Wilcox: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_Wilcox"], alternative = "less")$p.value))
 
 rankResult <- list(PURE = result_table[,"Rank_PURE"], 
                    ORA = result_table[,"Rank_ORA"], 
