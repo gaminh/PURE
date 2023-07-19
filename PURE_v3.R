@@ -311,6 +311,8 @@ print(summary)
 round(apply(result_table[c(15,16),], 2, mean, na.rm = T),1)
 
 PURE_r = result_table[,"Rank_PURE"]
+IPA_CDT_r = result_table[,"Rank_IPA_CDT"]
+IPA_r = result_table[,"Rank_IPA"]
 
 index = is.na(IPA_CDT_r)
 IPA_CDT_r[index] = result_table[index, "NrSignDrug_IPA_CDT"] + 1
