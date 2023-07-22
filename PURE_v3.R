@@ -347,13 +347,14 @@ print(paste0("PURE vs KS: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], r
 print(paste0("PURE vs FGSEA: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_FGSEA"], alternative = "less")$p.value))
 print(paste0("PURE vs Wilcox: p = ", wilcox.test(result_table[,"NrSignDrug_PURE"], result_table[,"NrSignDrug_Wilcox"], alternative = "less")$p.value))
 
-rankResult <- list(PURE = result_table[,"Rank_PURE"], 
-                   ORA = result_table[,"Rank_ORA"], 
-                   KS = result_table[,"Rank_KS"], 
-                   Wilcoxon = result_table[,"Rank_Wilcox"], 
-                   FGSEA = result_table[,"Rank_FGSEA"], 
-                   IPA = result_table[,"Rank_IPA"], 
-                   `IPA-CDT` = result_table[,"Rank_IPA_CDT"])
+# Comparing the rank of the true CDTs while testing the first Hypothesis (experiment from 1 to 14)
+rankResult <- list(PURE = result_table[c(1:14),"Rank_PURE"], 
+                   ORA = result_table[c(1:14),"Rank_ORA"], 
+                   KS = result_table[c(1:14),"Rank_KS"], 
+                   Wilcoxon = result_table[c(1:14),"Rank_Wilcox"], 
+                   FGSEA = result_table[c(1:14),"Rank_FGSEA"], 
+                   IPA = result_table[c(1:14),"Rank_IPA"], 
+                   `IPA-CDT` = result_table[c(1:14),"Rank_IPA_CDT"])
 rankResult <- lapply(rankResult, FUN = log) 
 
 pdf("RankTarget_vOrg_log_v3.pdf", width = 8, height = 8)
@@ -363,15 +364,15 @@ axis(2, labels=c(0), at=c(0))
 title(ylab="log(ranks) of the true CDTs", xlab= "Method", col="black")
 dev.off()
 
-# Nr of signficant drugs reported
+# Comparing Nr of signficant drugs reported while testing the first Hypothesis (experiment from 1 to 14)
 
-fpResult <- list(PURE = result_table[,"NrSignDrug_PURE"], 
-                 ORA = result_table[,"NrSignDrug_ORA"], 
-                 KS = result_table[,"NrSignDrug_KS"], 
-                 Wilcoxon = result_table[,"NrSignDrug_Wilcox"], 
-                 FGSEA = result_table[,"NrSignDrug_FGSEA"], 
-                 IPA = result_table[,"NrSignDrug_IPA"], 
-                 `IPA-CDT` = result_table[,"NrSignDrug_IPA_CDT"])
+fpResult <- list(PURE = result_table[c(1:14),"NrSignDrug_PURE"], 
+                 ORA = result_table[c(1:14),"NrSignDrug_ORA"], 
+                 KS = result_table[c(1:14),"NrSignDrug_KS"], 
+                 Wilcoxon = result_table[c(1:14),"NrSignDrug_Wilcox"], 
+                 FGSEA = result_table[c(1:14),"NrSignDrug_FGSEA"], 
+                 IPA = result_table[c(1:14),"NrSignDrug_IPA"], 
+                 `IPA-CDT` = result_table[c(1:14),"NrSignDrug_IPA_CDT"])
 pdf("NrSigChem_vOrg_v3.pdf", width = 8, height = 8)
 
 gap.boxplot(fpResult, gap=list(top=c(NA,NA),bottom=c(NA,NA)),
