@@ -8,11 +8,11 @@
 # created by Tuan-Minh Nguyen and Duc Tran
 # ------------------------------------------------------------------------------------------------- #
 
-cat("Please enter the working directory path (e.g. \"~/PURE-main\"): ")
+cat("Please enter the working directory path (e.g. \"~/PURE\"): ")
 path = readLines("stdin",n=1)
 setwd(path)
 cat(paste0("Set working directory successfully: ", path, "\n"))
-#setwd("~/PURE-main")
+#setwd("~/PURE")
 options("scipen"=100, "digits"=4)
 
 # Installing packages ------------------------------------------------------
@@ -264,8 +264,8 @@ for (method in c("ORA", "KS", "Wilcox", "FGSEA")) {
 # Collecting the results ---------------------------------------------
 
 methods <- c("PURE", "ORA", "KS", "Wilcox", "FGSEA", "IPA", "IPA_CDT")
-result_table <- matrix(nrow = length(datasets), ncol = length(methods)*3) 
-colnames(result_table) <- c(paste0("Rank_", methods), paste0("NrSignDrug_", methods), paste0("pAdj_", methods))
+result_table <- matrix(nrow = length(datasets), ncol = length(methods)*2) 
+colnames(result_table) <- c(paste0("Rank_", methods), paste0("NrSignDrug_", methods))
 rownames(result_table) <- datasets
 
 for (method in methods) {
@@ -279,15 +279,14 @@ for (method in methods) {
       names(p_value) <- res$CDT
       result_table[datasets[i], paste0("Rank_",method)] <- rank(p_value, ties.method = c("average"))[chem]
       result_table[datasets[i], paste0("NrSignDrug_",method)] <- sum(p_value< 0.05)
-      result_table[datasets[i], paste0("pAdj_",method)] <- res[res$CDT == chem, "padj"]
     } else {
       res <-  as.data.frame(read_xls(paste0("IPA_analysis/IPA_", datasets[i], ".xls"), sheet = "Sheet1", guess_max = 21474836))
       res <- res[!is.na(res$`Activation z-score`),] 
       if(method == "IPA_CDT") {
         res <- res[grepl("chemical|drug", res$`Molecule Type`),] # for IPA_CDT, filter only chemicals/drugs in molecule type
       }
-      res <- res[,c("Upstream Regulator", "Activation z-score", "p-value of overlap")]
-      colnames(res) <- c("CDT", "z_score", "p_overlap")
+      res <- res[,c("Upstream Regulator", "Activation z-score")]
+      colnames(res) <- c("CDT", "z_score")
       res$CDT <- toupper(res$CDT)
       z_score <- res$z_score
       names(z_score) <- res$CDT
@@ -302,7 +301,6 @@ for (method in methods) {
         } else {
           result_table[datasets[i], paste0("Rank_",method)] <- rank(-z_score, ties.method = c("average"))[toupper(chem)]
         }
-        result_table[datasets[i], paste0("pAdj_",method)] <- res[res$CDT == toupper(chem), "p_overlap"]
       }
       if(i == 15 | i ==16){
         result_table[datasets[i], paste0("NrSignDrug_",method)] <- sum(z_score <= -2)
@@ -319,7 +317,7 @@ avg <- round(apply(result_table[c(1:14),], 2, mean, na.rm = T),1)
 med <- round(apply(result_table[c(1:14),], 2, median, na.rm = T),1)
 sd <-round(apply(result_table[c(1:14),], 2, sd, na.rm = T),1)
 summary <- paste0(avg,"+/-" ,sd)
-names(summary) <- c(paste0("Rank_",methods),paste0("Nr_Sig_",methods), paste0("pv",methods))
+names(summary) <- c(paste0("Rank_",methods),paste0("Nr_Sig_",methods))
 print(summary)
 #Summary for H2
 round(apply(result_table[c(15,16),], 2, mean, na.rm = T),1)
